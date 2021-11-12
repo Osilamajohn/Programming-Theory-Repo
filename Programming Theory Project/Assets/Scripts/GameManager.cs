@@ -44,10 +44,20 @@ public class GameManager : MonoBehaviour
     }
     void BallJump()
     {
+        bool isOnPaddle = false;
+        
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             ballRb.AddForce(Vector3.up * jumpSpeed);
             Debug.Log("space has been pressed");
+            isOnPaddle = false;
+        }
+        if (isOnPaddle = true && transform.position.y >= -1)
+        {
+           
+            //isOnPaddle = true;
+            Debug.Log("Ball should change direction");
         }
     }
 }
