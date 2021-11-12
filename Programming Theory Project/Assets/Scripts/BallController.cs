@@ -5,6 +5,7 @@ using UnityEngine;
 public class BallController : MonoBehaviour
 {
     private Rigidbody ballRb;
+    public Rigidbody ball;
     // Start is called before the first frame update
     private void Start()
     {
@@ -24,7 +25,8 @@ public class BallController : MonoBehaviour
               ballRb.AddForce(new Vector2(-20, 15));
             }
             Debug.Log("Touch down");
-        }    
+        }
+       
     }
 
 }
