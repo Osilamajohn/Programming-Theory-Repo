@@ -13,35 +13,56 @@ public class GameManager : MonoBehaviour
     private Rigidbody ballRb;
     private float jumpSpeed = 1000;
     bool alreadyMoving = false;
+    Rigidbody wallRb;
     // Start is called before the first frame update
     void Start()
     {
         blockList = new List<GameObject>();
         paddleRb = paddle.gameObject.GetComponent<Rigidbody>();
         ballRb = ball.gameObject.GetComponent<Rigidbody>();
+        wallRb = gameObject.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
+        bool isStop = false;
         ButtonPressed(); // Abstraction OOP
         BallJump();
+        if (paddle.transform.position.x < -5)
+        {
+            paddleSpeed = 0;
+            paddleRb.transform.Translate(Vector3.left * paddleMove);
+            paddleSpeed = 1000;
+            Debug.Log("Limit reached");
+        }
+        if (paddle.transform.position.x > 5)
+        {
+            paddleSpeed = 0;
+            paddleRb.transform.Translate(Vector3.right * paddleMove);
+            paddleSpeed = 1000;
+            Debug.Log("Limit reached");
+        }
     }
     void ButtonPressed()
     {
+        bool moving;
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             paddleMove = Input.GetAxis("Horizontal") * paddleSpeed * Time.deltaTime;
              paddleRb.transform.Translate(Vector3.right * paddleMove);
             Debug.Log("Left key has been pressed");
+            
         }
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             paddleMove = Input.GetAxis("Horizontal") * -1 * paddleSpeed * Time.deltaTime;
             paddleRb.transform.Translate(Vector3.left * paddleMove);
+            
             Debug.Log("Right key has been pressed");
         }
     }
+    
     void BallJump()
     {
         bool isOnPaddle = false;
